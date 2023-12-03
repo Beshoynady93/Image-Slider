@@ -54,9 +54,9 @@ const ImageSlider = () => {
   };
 
   return (
-    <>
+    <div className="space-y-4">
       <div
-        className="grid grid-flow-col max-w-md overflow-x-auto scroll-smooth snap-mandatory snap-x bg-slate-500"
+        className="grid grid-flow-col max-w-md overflow-x-auto scroll-smooth snap-mandatory snap-x bg-slate-500 image-slider"
         ref={imageContainer}
       >
         {IMAGES.map((image) => (
@@ -96,7 +96,7 @@ const ImageSlider = () => {
           Stop
         </button>
       </div>
-    </>
+    </div>
   );
 };
 
