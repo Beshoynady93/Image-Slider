@@ -1,5 +1,9 @@
 import { useRef, useState } from 'react';
 import { v4 as uuid } from 'uuid';
+import PlayIcon from './PlayIcon';
+import StopIcon from './StopIcon';
+import NextIcon from './NextIcon';
+import BackIcon from './BackIcon';
 
 const IMAGES = [
   '/images/image1.jpg',
@@ -71,29 +75,38 @@ const ImageSlider = () => {
       </div>
       <div className="flex gap-4 items-center justify-center border px-4 py-2 border-slate-500 rounded-md">
         <button
-          className="bg-blue-500 px-2 py-1 rounded-md"
+          className="disabled:bg-slate-500 px-4 py-1 rounded-md flex items-center flex-col justify-center text-neutral-200 font-bold bg-slate-800"
           onClick={nextImageHandler}
+          disabled={isSliderPlaying}
         >
-          Next
+          <NextIcon />
+          <span>Next</span>
         </button>
+
         <button
-          className="bg-blue-500 px-2 py-1 rounded-md"
-          onClick={previousImageHandler}
-        >
-          Previous
-        </button>
-        <button
-          className="bg-blue-500 px-2 py-1 rounded-md"
+          className="disabled:bg-slate-500 px-4 py-1 rounded-md flex items-center flex-col justify-center text-neutral-200 font-bold bg-slate-800"
           onClick={playImageSliderHandler}
           disabled={isSliderPlaying}
         >
-          Play
+          <PlayIcon />
+          <span>Play</span>
         </button>
         <button
-          className="bg-blue-500 px-2 py-1 rounded-md"
+          className="disabled:bg-slate-500 px-4 py-1 rounded-md flex items-center flex-col justify-center text-neutral-200 font-bold bg-slate-800"
           onClick={stopImageSliderHandler}
+          disabled={!isSliderPlaying}
         >
-          Stop
+          <StopIcon />
+          <span>Stop</span>
+        </button>
+
+        <button
+          className="disabled:bg-slate-500 px-4 py-1 rounded-md flex items-center flex-col justify-center text-neutral-200 font-bold bg-slate-800"
+          onClick={previousImageHandler}
+          disabled={isSliderPlaying}
+        >
+          <BackIcon />
+          <span>Previous</span>
         </button>
       </div>
     </div>
