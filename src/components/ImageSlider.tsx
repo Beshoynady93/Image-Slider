@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { v4 as uuid } from 'uuid';
 
 const IMAGES = [
@@ -8,9 +8,13 @@ const IMAGES = [
   '/images/image4.jpg',
 ];
 
+const TIMEOUT = 1000;
+
 const ImageSlider = () => {
   const imageRef = useRef<HTMLImageElement>(null);
   const imageContainer = useRef<HTMLDivElement>(null);
+  const [intervalID, setIntervalID] = useState<number>();
+  const [isSliderPlaying, setIsSliderPlaying] = useState(false);
 
   const nextImageHandler = () => {
     if (!imageRef.current || !imageContainer.current) return;
@@ -33,6 +37,20 @@ const ImageSlider = () => {
     } else {
       imageContainer.current.scrollLeft -= imageRef.current.width;
     }
+  };
+
+  const playImageSliderHandler = () => {
+    const intervalID = setInterval(() => {
+      nextImageHandler();
+    }, TIMEOUT);
+
+    setIntervalID(intervalID);
+    setIsSliderPlaying(true);
+  };
+
+  const stopImageSliderHandler = () => {
+    clearInterval(intervalID);
+    setIsSliderPlaying(false);
   };
 
   return (
@@ -64,8 +82,19 @@ const ImageSlider = () => {
         >
           Previous
         </button>
-        <button className="bg-blue-500 px-2 py-1 rounded-md">Play</button>
-        <button className="bg-blue-500 px-2 py-1 rounded-md">Stop</button>
+        <button
+          className="bg-blue-500 px-2 py-1 rounded-md"
+          onClick={playImageSliderHandler}
+          disabled={isSliderPlaying}
+        >
+          Play
+        </button>
+        <button
+          className="bg-blue-500 px-2 py-1 rounded-md"
+          onClick={stopImageSliderHandler}
+        >
+          Stop
+        </button>
       </div>
     </>
   );
